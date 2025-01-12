@@ -147,7 +147,7 @@ const Navbar = () => {
                   </li>
                   <li onClick={handleLogout}>
                     <Link to={"/"}>
-                      Logout
+                      Đăng Xuất
                     </Link>
                   </li>
                 </ul>
