@@ -1,4 +1,4 @@
-import { mailtrapClient, sender } from "./mailtrap.config.js";
+import transporter, { emailConfig } from "./mailtrap.config.js";
 
 const VERIFICATION_EMAIL_TEMPLATE = `
 <!DOCTYPE html>
@@ -31,25 +31,23 @@ const VERIFICATION_EMAIL_TEMPLATE = `
 `;
 
 export const sendVerificationEmail = async (email, verificationToken) => {
-	if (!email || !verificationToken) {
-		throw new Error('Email and verification token are required');
-	}
+  if (!email || !verificationToken) {
+      throw new Error('Email and verification token are required');
+  }
 
-	const recipient = [{ email }];
+  try {
+      const mailOptions = {
+          from: `${emailConfig.from.name} <${emailConfig.from.email}>`,
+          to: email,
+          subject: "Xác thực email của bạn",
+          html: VERIFICATION_EMAIL_TEMPLATE.replace("{verificationCode}", verificationToken)
+      };
 
-	try {
-		const response = await mailtrapClient.send({
-			from: sender,
-			to: recipient,
-			subject: "Verify your email",
-			html: VERIFICATION_EMAIL_TEMPLATE.replace("{verificationCode}", verificationToken),
-			category: "Email Verification"
-		});
-
-		console.log("Email sent successfully", response);
-		return response;
-	} catch (error) {
-		console.error("Error sending verification email:", error);
-		throw new Error(`Failed to send verification email: ${error.message}`);
-	}
+      const info = await transporter.sendMail(mailOptions);
+      console.log("Email sent successfully:", info.messageId);
+      return info;
+  } catch (error) {
+      console.error("Error sending verification email:", error);
+      throw new Error(`Failed to send verification email: ${error.message}`);
+  }
 };
