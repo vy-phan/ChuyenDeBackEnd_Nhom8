@@ -95,35 +95,34 @@ const Search = () => {
   };
 
   return (
-    <div className="flex flex-col items-center p-5 max-w-3xl mx-auto">
-      <div className="w-full flex gap-2">
-        {/* nút tìm kiếm */}
+    <div className="flex flex-col items-center p-3 sm:p-5 max-w-3xl mx-auto">
+      {/* Search and Random Section */}
+      <div className="w-full flex flex-col sm:flex-row gap-2">
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Tìm kiếm truyện"
-          className="w-full px-5 py-3 rounded-full border border-gray-200 focus:outline-none focus:border-blue-400 shadow-sm"
+          className="w-full px-4 py-2.5 rounded-full border border-gray-200 focus:outline-none focus:border-blue-400 shadow-sm text-sm sm:text-base"
         />
-        {/* nút random */}
         <button
           onClick={handleRandomManga}
-          className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors shadow-sm"
+          className="w-full sm:w-auto px-6 py-2.5 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors shadow-sm text-sm sm:text-base whitespace-nowrap"
         >
           Random
         </button>
       </div>
 
       {/* Filter Options */}
-      <div className="w-full mt-4 flex gap-4 justify-end">
-        {/* nút lọc theo mới cập nhật */}
+      <div className="w-full mt-4 flex flex-col sm:flex-row gap-2 sm:gap-4 sm:justify-end">
+        {/* Sort by Date Filter */}
         <select
           value={sortOrder}
           onChange={(e) => {
             setSortOrder(e.target.value);
             handleDateSort();
           }}
-          className={`select select-bordered select-sm ${
+          className={`select select-bordered w-full sm:w-auto text-sm ${
             activeFilter === 'date' ? 'select-primary' : ''
           }`}
         >
@@ -131,11 +130,11 @@ const Search = () => {
           <option value="desc">Cũ nhất</option>
         </select>
 
-        {/* nút lọc theo thể loại */}
+        {/* Genre Filter */}
         <select
           value={selectedGenre}
           onChange={(e) => handleGenreFilter(e.target.value)}
-          className={`select select-bordered select-sm ${
+          className={`select select-bordered w-full sm:w-auto text-sm ${
             activeFilter === 'genre' ? 'select-primary' : ''
           }`}
         >
@@ -147,11 +146,11 @@ const Search = () => {
           ))}
         </select>
 
-        {/*  nút lọc theo tình trạng */}
+        {/* Status Filter */}
         <select
           value={statusFilter}
           onChange={(e) => handleStatusFilter(e.target.value)}
-          className={`select select-bordered select-sm ${
+          className={`select select-bordered w-full sm:w-auto text-sm ${
             activeFilter === 'status' ? 'select-primary' : ''
           }`}
         >

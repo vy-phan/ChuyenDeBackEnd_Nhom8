@@ -88,6 +88,32 @@ const DetailCard = () => {
     }
   };
 
+  const saveToReadingHistory = () => {
+    try {
+      // Get existing history from localStorage
+      const existingHistory = JSON.parse(localStorage.getItem('readingHistory') || '[]');
+      
+      // Remove the current manga if it exists (to avoid duplicates)
+      const filteredHistory = existingHistory.filter(item => item.mangaId !== id);
+      
+      // Add the current manga to the beginning of the array
+      const updatedHistory = [{
+        mangaId: id,
+        title: manga.title,
+        poster: manga.poster,
+        lastReadAt: new Date().toISOString()
+      }, ...filteredHistory];
+      
+      // Keep only the last 20 items to prevent localStorage from getting too large
+      const limitedHistory = updatedHistory.slice(0, 20);
+      
+      // Save back to localStorage
+      localStorage.setItem('readingHistory', JSON.stringify(limitedHistory));
+    } catch (error) {
+      console.error('Error saving to reading history:', error);
+    }
+  };
+
   return (
     loading ? (
       <div className="flex justify-center items-center h-screen">
@@ -205,6 +231,7 @@ const DetailCard = () => {
                   onClick={() => {
                     document.getElementById('openChapter').showModal();
                     setCurrentIndex(index);
+                    saveToReadingHistory();
                   }}
                 >
                   Chương {chapter.chapterNumber}
