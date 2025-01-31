@@ -8,19 +8,21 @@ const SlideBar = () => {
             {/* Navigation */}
             <nav className="flex-grow">
                 <ul>
-                    <li className="p-4 hover:bg-gray-800 cursor-pointer flex items-center gap-2">
-                        <Link to={"/admin"}>
+                    <Link to={"/admin"}>
+                        <li className="p-4 hover:bg-gray-800 cursor-pointer flex items-center gap-2">
                             <span className='font-bold '>Dashboard</span>
-                        </Link>
-                    </li>
-                    <li className="p-4 hover:bg-gray-800 cursor-pointer flex items-center gap-2">
-                        <Link to={"/admin"}>
+                        </li>
+                    </Link>
+                    <Link to={"/admin"}>
+                        <li className="p-4 hover:bg-gray-800 cursor-pointer flex items-center gap-2">
                             <span>Hiển thị truyện</span>
-                        </Link>
-                    </li>
-                    <li className="p-4 hover:bg-gray-800 cursor-pointer flex items-center gap-2">
-                        <span>Phân tích</span>
-                    </li>
+                        </li>
+                    </Link>
+                    <Link to={"/admin/the-loai"}>
+                        <li className="p-4 hover:bg-gray-800 cursor-pointer flex items-center gap-2">
+                            <span>Hiển thị thể loại</span>
+                        </li>
+                    </Link>
                 </ul>
             </nav>
         </aside>

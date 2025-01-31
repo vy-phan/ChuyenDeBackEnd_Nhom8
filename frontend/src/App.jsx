@@ -14,6 +14,7 @@ import DetailGenre from './pages/DetailGenre.jsx';
 import DetailAdmin from './pages/DetailAdmin.jsx';
 import Profile from './pages/Profile.jsx';
 import VerifyEmail from './pages/VerifyEmail.jsx';
+import AdminTheLoai from './pages/AdminTheLoai.jsx';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Route path="/verify-email" element={<VerifyEmail />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/the-loai" element={<AdminTheLoai />} />
               <Route path='/admin/manga/:id' element={<DetailAdmin />} />
               <Route path='/manga/:id' element={<DetailCard />} />
               <Route path='/genre/:genreId' element={<DetailGenre />} />

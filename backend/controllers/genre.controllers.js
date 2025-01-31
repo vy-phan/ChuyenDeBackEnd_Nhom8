@@ -50,15 +50,41 @@ export const postGenre = async(req,res) => {
 }
 
 export const deleteGenre = async(req,res) => {
-    const {id} = req.params
+    const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({success: false, message: "No such genre"})
+        return res.status(404).json({ success: false, message: "No such genre" });
     }
     try {
-        await Genre.findByIdAndRemove(id)
-        res.status(200).json({success: true, message: "Genre deleted"})
+        await Genre.findByIdAndDelete(id);
+        res.status(200).json({ success: true, message: "Genre deleted" });
     } catch (error) {
-        console.log(error)
-        res.status(500).json({success: false, message: "Server Error"})    
+        console.log(error);
+        res.status(500).json({ success: false, message: "Server Error" });    
     }
 }
+
+export const updateGenre = async (req, res) => {
+    const { id } = req.params;
+    const updates = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ success: false, message: "No such genre with this ID" });
+    }
+
+    try {
+        const genre = await Genre.findByIdAndUpdate(
+            id, 
+            { ...updates }, 
+            { new: true }
+        );
+
+        if (!genre) {
+            return res.status(404).json({ success: false, message: "Genre not found" });
+        }
+
+        res.status(200).json({ success: true, data: genre });
+    } catch (error) {
+        console.error("Error in UPDATE Genre:", error.message);
+        res.status(500).json({ success: false, message: "Server Error" });
+    }
+};

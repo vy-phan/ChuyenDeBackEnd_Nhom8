@@ -25,6 +25,8 @@ const useMangaData = () => {
                 setGenres(response.data.data);
             } catch (error) {
                 toast.error('Error fetching genre data:', error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -32,7 +34,7 @@ const useMangaData = () => {
         fetchGenreData();
     }, []);
 
-    return { mangaData, genres, loading };
+    return { mangaData, genres, setGenres, loading };
 };
 
 export default useMangaData; 
