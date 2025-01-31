@@ -1,6 +1,7 @@
 import React from 'react'
 import { formatDate } from '../utils/dataFomat.js';
 import { getGenreData } from '../hooks/useGenres.js'
+import { Link } from 'react-router-dom';
 
 const Card = ({ manga, genres }) => {
     return (
@@ -20,9 +21,9 @@ const Card = ({ manga, genres }) => {
                 <p className="text-sm text-gray-500">{formatDate(manga.updatedAt)}</p>
                 <div className="card-actions justify-start">
                     {getGenreData(manga.genres, genres).map((genre) => (
-                        <div key={genre.id} className="badge badge-outline">
+                        <Link to={`/genre/${genre.id}`} key={genre.id} className="badge badge-outline">
                             {genre.name}
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
