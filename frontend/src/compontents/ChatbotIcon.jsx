@@ -4,7 +4,7 @@ import { FaComments } from 'react-icons/fa';
 const ChatbotIcon = ({ onClick }) => {
   return (
     <div
-      className="fixed bottom-6 right-6 z-50 cursor-pointer"
+      className="fixed bottom-9 right-6 z-50 cursor-pointer"
       onClick={onClick}
     >
       <div className="bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-full shadow-lg">

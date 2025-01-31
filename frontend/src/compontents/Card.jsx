@@ -9,6 +9,7 @@ const Card = ({ manga, genres }) => {
                 <img
                     src={manga.poster}
                     alt={manga.title}
+                    loading="lazy"
                     className="h-49 w-full object-cover sm:h-64 lg:h-56 xl:h-64"
                 />
             </figure>

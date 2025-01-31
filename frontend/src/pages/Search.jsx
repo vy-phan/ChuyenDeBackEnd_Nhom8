@@ -12,6 +12,37 @@ const Search = () => {
   const [activeFilter, setActiveFilter] = useState('none') // 'none', 'search', 'status', 'date', 'genre'
   const [sortOrder, setSortOrder] = useState('desc') // 'desc' for newest first, 'asc' for oldest first
   const [selectedGenre, setSelectedGenre] = useState('all')
+  const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('theme'));
+
+  useEffect(() => {
+    // Hàm xử lý khi localStorage thay đổi
+    const handleStorageChange = () => {
+      setCurrentTheme(localStorage.getItem('theme'));
+    };
+
+    // Thêm event listener
+    window.addEventListener('storage', handleStorageChange);
+
+    // Thêm một MutationObserver để theo dõi thay đổi của attribute html[data-theme]
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'data-theme') {
+          setCurrentTheme(localStorage.getItem('theme'));
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      observer.disconnect();
+    };
+  }, []);
 
   // Handle search
   const handleSearch = (term) => {
@@ -93,6 +124,9 @@ const Search = () => {
     const randomIndex = Math.floor(Math.random() * mangaData.length);
     setRandomManga(mangaData[randomIndex]);
   };
+
+  const theme = localStorage.getItem('theme');
+
 
   return (
     <div className="flex flex-col items-center p-3 sm:p-5 max-w-3xl mx-auto">
@@ -180,18 +214,20 @@ const Search = () => {
         <div className="flex justify-center items-center h-screen">
           <span className="loading loading-dots loading-lg"></span>
         </div>
+        // kết quả khi random
       ) : randomManga ? (
         <div className="flex justify-center items-center mt-5">
-          <div className="bg-neutral rounded-box p-4">
+          <div className={`${currentTheme === 'night' ? 'bg-neutral' : 'bg-white'} rounded-box p-4`}>
             <Link to={`/manga/${randomManga._id}`}>
               <Card manga={randomManga} genres={genres} />
             </Link>
           </div>
         </div>
+        // kết quả khi chưa search
       ) : (results.length <= 0 ?
         (
           <div className="flex justify-center items-center mt-5 ">
-            <div className="carousel carousel-center bg-neutral rounded-box max-w-5xl mx-auto space-x-4 p-4">
+            <div className={`carousel carousel-center ${currentTheme === 'night' ? 'bg-neutral' : 'bg-white'} rounded-box max-w-5xl mx-auto space-x-4 p-4`}>
               {mangaData.map((manga, index) => (
                 <Link to={`/manga/${manga._id}`} key={index}>
                   <div className="carousel-item" key={index}>
@@ -204,7 +240,7 @@ const Search = () => {
         ) :
         (
           <div className="flex justify-center items-center mt-5 ">
-            <div className="carousel carousel-center bg-neutral rounded-box max-w-5xl mx-auto space-x-4 p-4">
+            <div className={`carousel carousel-center ${currentTheme === 'night' ? 'bg-neutral' : 'bg-white'} rounded-box max-w-5xl mx-auto space-x-4 p-4`}>
               {results.map((manga, index) => (
                 <Link to={`/manga/${manga._id}`} key={index}>
                   <div className="carousel-item" key={index}>
