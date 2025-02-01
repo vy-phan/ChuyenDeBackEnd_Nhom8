@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import Chatbot from '../compontents/Chatbot.jsx';
 import ChatbotIcon from '../compontents/ChatbotIcon.jsx';
 import Scroller from '../compontents/Scroller.jsx';
+import RankingList from '../compontents/RankingList.jsx';
 
 const Home = () => {
   const { mangaData, genres, loading } = useMangaData();
@@ -78,7 +79,7 @@ const Home = () => {
 
             {isCarouselLayout ? (
               <div className="flex justify-center items-center">
-                <div className={`carousel carousel-center rounded-box max-w-5xl mx-auto space-x-4 p-4 ${currentTheme === 'night' ? 'bg-neutral' : 'bg-white'}`}>
+                <div className={`carousel carousel-center rounded-box max-w-5xl mx-auto space-x-4 p-4 ${currentTheme === 'night' ? 'bg-neutral' : 'bg-gray-200'}`}>
                   {mangaData.map((manga, index) => (
                     <Link to={`/manga/${manga._id}`} key={index}>
                       <div className="carousel-item" key={index}>
@@ -89,8 +90,8 @@ const Home = () => {
                 </div>
               </div>
             ) : (
-              <div className={`container mx-auto px-4 py-8 ${currentTheme === 'night' ? 'bg-neutral' : 'bg-white'} rounded-xl`}>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className={`container mx-auto px-3 py-8 ${currentTheme === 'night' ? 'bg-neutral' : 'bg-gray-200'} rounded-xl`}>
+                <div className="grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
                   {mangaData.map((manga, index) => (
                     <Link to={`/manga/${manga._id}`} key={index} className="w-full">
                       <div className="h-full">
@@ -101,6 +102,12 @@ const Home = () => {
                 </div>
               </div>
             )}
+
+            {
+              <div className="my-5">
+                <RankingList mangas={mangaData} currentTheme={currentTheme}/>
+              </div>
+            }
           </>
         )
       }
