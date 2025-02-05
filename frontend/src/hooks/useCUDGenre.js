@@ -6,11 +6,21 @@ export const useCUDGenre = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    // Helper function to get auth headers
+    const getAuthHeaders = () => {
+        const token = localStorage.getItem('auth-token');
+        return {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        };
+    };
+
     const fetchGenres = async () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get('/api/genre');
+            const response = await axios.get('/api/genre', getAuthHeaders());
             setGenres(response.data.data);
         } catch (err) {
             console.error(err);
@@ -41,7 +51,7 @@ export const useCUDGenre = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.put(`/api/genre/${id}`, genre);
+            const response = await axios.put(`/api/genre/${id}`, genre, getAuthHeaders());
             const updatedGenre = response.data.data;
             setGenres(prevGenres => 
                 prevGenres.map(g => g._id === id ? updatedGenre : g)
@@ -60,7 +70,7 @@ export const useCUDGenre = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.delete(`/api/genre/${id}`);
+            const response = await axios.delete(`/api/genre/${id}`, getAuthHeaders());
             if (response.data.success) {
                 setGenres(prevGenres => prevGenres.filter(g => g._id !== id));
                 return true;

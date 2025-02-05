@@ -15,8 +15,11 @@ import DetailAdmin from './pages/DetailAdmin.jsx';
 import Profile from './pages/Profile.jsx';
 import VerifyEmail from './pages/VerifyEmail.jsx';
 import AdminTheLoai from './pages/AdminTheLoai.jsx';
+import { useAuthContext } from './context/auth.context.jsx';
 
 function App() {
+  const authContext = useAuthContext();
+
   return (
     <>
       <div className="flex flex-col min-h-screen"> {/* Flex container */}
@@ -26,14 +29,14 @@ function App() {
             <Routes >
               <Route path="/" element={<Home />} />
               <Route path="/search" element={<Search />} />
-              <Route path="/library" element={<Favorite />} />
+              <Route path="/library" element={authContext ? <Favorite /> : <Login />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/verify-email" element={<VerifyEmail />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/admin/the-loai" element={<AdminTheLoai />} />
-              <Route path='/admin/manga/:id' element={<DetailAdmin />} />
+              <Route path="/profile" element={authContext ? <Profile /> : <Login />} />
+              <Route path="/admin" element={authContext ? <Admin /> : <Login />} />
+              <Route path="/admin/the-loai" element={authContext ? <AdminTheLoai /> : <Login />} />
+              <Route path='/admin/manga/:id' element={authContext ? <DetailAdmin /> : <Login />} />
               <Route path='/manga/:id' element={<DetailCard />} />
               <Route path='/genre/:genreId' element={<DetailGenre />} />
             </Routes>

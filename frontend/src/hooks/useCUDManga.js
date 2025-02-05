@@ -5,10 +5,20 @@ import { useState } from 'react'
 const useCUDManga = () => {
     const [mangaData, setMangaData] = useState([]);
 
+    // Helper function to get auth headers
+    const getAuthHeaders = () => {
+        const token = localStorage.getItem('auth-token');
+        return {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        };
+    };
+
     // POST: Add new manga
     const addManga = async (newManga) => {
         try {
-            const response = await axios.post('/api/manga', newManga);
+            const response = await axios.post('/api/manga', newManga, getAuthHeaders());
             if (response.data) {
                 setMangaData(prev => [...prev, response.data.data]);
                 toast.success('Manga added successfully');
@@ -24,7 +34,7 @@ const useCUDManga = () => {
     // PUT: Update existing manga
     const updateManga = async (id, updatedManga) => {
         try {
-            const response = await axios.put(`/api/manga/${id}`, updatedManga);
+            const response = await axios.put(`/api/manga/${id}`, updatedManga, getAuthHeaders());
             if (response.data) {
                 setMangaData(prev =>
                     prev.map(manga => manga._id === id ? response.data.data : manga)
@@ -42,7 +52,7 @@ const useCUDManga = () => {
     // DELETE: Remove manga
     const deleteManga = async (id) => {
         try {
-            const response = await axios.delete(`/api/manga/${id}`);
+            const response = await axios.delete(`/api/manga/${id}`, getAuthHeaders());
             if (response.status === 200) {
                 setMangaData(prev => prev.filter(manga => manga._id !== id));
                 toast.success('Manga deleted successfully');

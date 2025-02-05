@@ -9,6 +9,6 @@ router.post('/login', login);
 router.post('/logout', logout);
 router.post('/verify-email', verifyEmail);
 router.get('/', getAllUsers);
-router.put('/favorite/:id', updateUser);
+router.put('/favorite/:id',protectRoute, updateUser);
 
 export default router;
