@@ -77,7 +77,7 @@ Frontend được xây dựng bằng React với hooks và bao gồm các chức
 
 1. **Backend**:
    - Điều hướng đến thư mục `backend`.
-   - Tạo file `.env` cùng cấp thư mục backend và frontendfrontend với các biến môi trường cần thiết.
+   - Tạo file `.env` cùng cấp thư mục backend và fronten với các biến môi trường cần thiết.
    ```
         PORT=6000
         MONGODB_URL=dường dẫn url mongodbmongodb
