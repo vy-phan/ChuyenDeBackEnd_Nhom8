@@ -41,9 +41,10 @@ Frontend được xây dựng bằng React với hooks và bao gồm các chức
 - **Trang yêu thích**: Hiển thị manga yêu thích của người dùng.
   - [`Favorite.jsx`](frontend/src/pages/Favorite.jsx)
 
-- **Bảng điều khiển Admin**: Cho phép người dùng admin quản lý manga và tài khoản người dùng.
+- **Bảng điều khiển Admin**: Cho phép người dùng admin quản lý manga , chương của mỗi manga và thể loại.
   - [`Admin.jsx`](frontend/src/pages/Admin.jsx)
   - [`DetailAdmin.jsx`](frontend/src/pages/DetailAdmin.jsx)
+  - [`AdminTheLoai`](frontend/src/pages/AdminTheLoai.jsx)
 
 - **Xác thực**: Xử lý đăng nhập, đăng ký và xác minh email người dùng.
   - [`Login.jsx`](frontend/src/pages/Login.jsx)
@@ -61,7 +62,6 @@ Frontend được xây dựng bằng React với hooks và bao gồm các chức
 
 - **Chatbot**: Cung cấp gợi ý manga sử dụng chatbot.
   - [`Chatbot.jsx`](frontend/src/compontents/Chatbot.jsx)
-  - [`ChatbotIcon.jsx`](frontend/src/compontents/ChatbotIcon.jsx)
 
 ## Công nghệ sử dụng
 
