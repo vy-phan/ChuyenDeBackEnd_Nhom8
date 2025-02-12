@@ -4,6 +4,7 @@ import { connectDB } from './config/db.js'
 import mangaRouter from './router/manga.router.js'
 import authRouter from './router/auth.router.js'
 import genreRouter from './router/genre.router.js'
+import commentRouter from './router/comment.router.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
@@ -20,6 +21,7 @@ app.use(cookieParser())
 app.use('/api/user',authRouter)
 app.use('/api/manga',mangaRouter)
 app.use('/api/genre',genreRouter)
+app.use('/api/comment',commentRouter)
 
 app.listen(PORT , () => {
     connectDB()

@@ -6,6 +6,7 @@ import useMangaData from '../hooks/useMangaData.js';
 import getGenreData from '../hooks/useGenres.js';
 import { formatDate } from '../utils/dataFomat.js';
 import useCUDUser from '../hooks/useCUDUser.js';
+import Comment from '../compontents/Comment.jsx';
 
 const DetailCard = () => {
   const { id } = useParams(); // Lấy ID từ URL
@@ -239,7 +240,12 @@ const DetailCard = () => {
               ))}
             </ul>
           </div>
+          {/* comment ne */}
+          <div className="p-4 border-t border-gray-300">
+            <Comment />
+          </div>
         </div>
+        
 
         <dialog id="openChapter" className="modal">
           <div className="modal-box w-11/12 max-w-5xl flex flex-col items-center">
