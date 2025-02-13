@@ -1,25 +1,27 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const useGetComment = () => {
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true); 
-     
-    useEffect(() => {
-        const fetchComments = async () => {
-            try {
-                const response = await axios.get("/api/comment");
-                setComments(response.data.data);
-            } catch (err) {
-                console.log(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchComments();
+
+    const fetchComments = useCallback(async () => { // Thêm useCallback để tránh re-render không cần thiết
+        try {
+            setLoading(true);
+            const response = await axios.get("/api/comment");
+            setComments(response.data.data);
+        } catch (err) {
+            console.log("Lỗi khi lấy bình luận:", err);
+        } finally {
+            setLoading(false);
+        }
     }, []);
-    return { comments, loading };
+
+    useEffect(() => {
+        fetchComments();
+    }, [fetchComments]); 
+
+    return { comments, loading, fetchComments };
 }
 
 export default useGetComment;
-
